@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ogurecs setup</title>
+    <style>
+        :root {
+            /* цвета с твоей картинки */
+            --bg-color: #1a1a1a;       /* темный фон как коврик/монитор */
+            --card-bg: #262626;        /* чуть светлее для карточек */
+            --text-main: #eaeaea;      /* почти белый */
+            --text-dim: #a0a0a0;       /* серый текст */
+            --accent: #95c2a6;         /* тот самый мятно-зеленый с клавиатуры */
+            --wood: #8b5e3c;           /* оттенок стола (для мелких деталей) */
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace; /* техно-стиль */
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+
+        h1 {
+            font-weight: normal;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .nickname {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* стили для картинки */
+        .setup-image {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 2px solid var(--card-bg);
+            margin-bottom: 40px;
+            object-fit: cover;
+        }
+
+        h2 {
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 10px;
+            margin-top: 40px;
+            font-size: 1.2rem;
+            color: var(--text-main);
+            text-transform: lowercase;
+        }
+
+        /* сетка для характеристик */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .spec-card {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+            transition: transform 0.2s;
+        }
+
+        .spec-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .spec-name {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 4px;
+        }
+
+        .spec-value {
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>привет, это <span class="nickname">ogurecs</span></h1>
+            <p style="color: var(--text-dim);">мой рабочий и игровой уголок</p>
+        </header>
+
+        <img src="1.jpg" alt="мой сетап" class="setup-image">
+
+        <section>
+            <h2>пк (железо)</h2>
+            <div class="specs-grid">
+                <div class="spec-card">
+                    <span class="spec-name">cpu</span>
+                    <span class="spec-value">ryzen 5 7600</span>
+                </div>
+                <div class="spec-card">
+                    <span class="spec-name">gpu</span>
+                    <span class="spec-value">rx 6800 xt sapphire nitro+</span>
+                </div>
+                <div class="spec-card">
+                    <span class="spec-name">ram</span>
+                    <span class="spec-value">32gb ddr5 (5200mhz)</span>
+                </div>
+                <div class="spec-card">
+                    <span class="spec-name">motherboard</span>
+                    <span class="spec-value">asus rog strix b650e-i</span>
+                </div>
+                <div class="spec-card">
+                    <span class="spec-name">case</span>
+                    <span class="spec-value">thermaltake the tower 100</span>
+                </div>
+                <div class="spec-card">
+                    <span class="spec-name">storage</span>
+                    <span class="spec-value">kingston nv3 1tb + samsung 870 1tb</span>
+                </div>
+                <div class="spec-card">
+                    <span class="spec-name">cooling</span>
+                    <span class="spec-value">arctic p14 (x2)</span>
+                </div>
+                <div class="spec-card">
+                    <span class="spec-name">psu</span>
+                    <span class="spec-value">thermaltake 750w bronze</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>периферия (сетап)</h2>
+            <div class="specs-grid">
+                <div class="spec-card">
+                    <span class="spec-name">monitor</span>
+                    <span class="spec-value">xiaomi mi curved gaming 34"</span>
+                </div>
+                <div class="spec-card">
+                    <span class="spec-name">keyboard</span>
+                    <span class="spec-value">ajazz ak820 max (magnetic/screen)</span>
+                </div>
+                <div class="spec-card">
+                    <span class="spec-name">mouse</span>
+                    <span class="spec-value">ajazz aj159 pro</span>
+                </div>
+                <div class="spec-card">
+                    <span class="spec-name">microphone</span>
+                    <span class="spec-value">fifine am8 + bm88 arm</span>
+                </div>
+                <div class="spec-card">
+                    <span class="spec-name">audio</span>
+                    <span class="spec-value">simgot ea500</span>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            2026 / made by ogurecs
+        </footer>
+    </div>
+
+</body>
+</html>
