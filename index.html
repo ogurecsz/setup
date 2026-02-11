@@ -3,25 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ogurecs setup</title>
+    <title>ogurecs's setup</title>
     <style>
         :root {
-            /* цвета с твоей картинки */
-            --bg-color: #1a1a1a;       /* темный фон как коврик/монитор */
-            --card-bg: #262626;        /* чуть светлее для карточек */
-            --text-main: #eaeaea;      /* почти белый */
-            --text-dim: #a0a0a0;       /* серый текст */
-            --accent: #95c2a6;         /* тот самый мятно-зеленый с клавиатуры */
-            --wood: #8b5e3c;           /* оттенок стола (для мелких деталей) */
+            /* Основные цвета */
+            --bg-start: #1a1a1a;
+            --bg-end: #121212;
+            --card-bg: #262626;
+            --card-bg-hover: #2a2a2a;
+            --text-main: #eaeaea;
+            --text-dim: #a0a0a0;
+            /* Акцентный градиент на основе мятного цвета */
+            --accent-color: #95c2a6;
+            --accent-gradient: linear-gradient(135deg, #95c2a6, #6fa38c);
         }
 
         body {
-            font-family: 'Courier New', Courier, monospace; /* техно-стиль */
-            background-color: var(--bg-color);
+            font-family: 'Courier New', Courier, monospace;
+            /* Тонкий темный градиент на фон для глубины */
+            background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
             color: var(--text-main);
             margin: 0;
             padding: 20px;
             line-height: 1.5;
+            min-height: 100vh;
         }
 
         .container {
@@ -32,76 +37,158 @@
         header {
             text-align: center;
             margin-bottom: 40px;
-            padding-top: 20px;
+            margin-top: 40px;
         }
 
         h1 {
-            font-weight: normal;
+            font-weight: 900;
             letter-spacing: -1px;
-            margin-bottom: 10px;
-        }
-
-        .nickname {
-            color: var(--accent);
-            font-weight: bold;
-        }
-
-        /* стили для картинки */
-        .setup-image {
-            width: 100%;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 2px solid var(--card-bg);
-            margin-bottom: 40px;
-            object-fit: cover;
-        }
-
-        h2 {
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 10px;
-            margin-top: 40px;
-            font-size: 1.2rem;
-            color: var(--text-main);
+            margin: 0;
+            font-size: 2.5rem;
             text-transform: lowercase;
         }
 
-        /* сетка для характеристик */
+        /* Градиентный текст для никнейма */
+        .nickname-gradient {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        /* Стили для картинки с легким свечением */
+        .setup-image {
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 20px rgba(149, 194, 166, 0.1);
+            border: 3px solid var(--card-bg);
+            margin-bottom: 50px;
+            object-fit: cover;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .setup-image:hover {
+             transform: scale(1.01);
+             box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 30px rgba(149, 194, 166, 0.2);
+        }
+
+        h2 {
+            position: relative;
+            padding-bottom: 15px;
+            margin-top: 50px;
+            margin-bottom: 25px;
+            font-size: 1.4rem;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        /* Градиентная линия под заголовками */
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--accent-gradient);
+            border-radius: 2px;
+        }
+
         .specs-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
         }
 
+        /* Продвинутые стили карточек */
         .spec-card {
             background: var(--card-bg);
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 3px solid var(--accent);
-            transition: transform 0.2s;
+            padding: 20px;
+            border-radius: 12px;
+            position: relative;
+            z-index: 1;
+            overflow: hidden; /* Чтобы градиентная рамка не вылезала */
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, background 0.3s ease;
+            border: 1px solid transparent; /* Резерв для рамки */
         }
 
-        .spec-card:hover {
-            transform: translateY(-2px);
+        /* Создаем градиентную рамку через псевдоэлемент под карточкой */
+        .spec-card::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: var(--accent-gradient);
+            z-index: -2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: inherit;
         }
+        
+        /* Внутренний фон карточки, чтобы перекрыть центр градиента */
+        .spec-card::after {
+             content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--card-bg);
+            z-index: -1;
+            border-radius: 10px; /* Чуть меньше родителя */
+            transition: background 0.3s ease;
+        }
+
+
+        /* Эффекты при наведении на карточку */
+        .spec-card:hover {
+            transform: translateY(-7px) scale(1.02);
+            box-shadow: 0 15px 30px -10px rgba(149, 194, 166, 0.3);
+        }
+
+        .spec-card:hover::before {
+            opacity: 1; /* Показываем градиентную рамку */
+        }
+        
+         .spec-card:hover::after {
+            background: var(--card-bg-hover); /* Чуть светлее фон внутри */
+        }
+
 
         .spec-name {
             display: block;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             color: var(--text-dim);
-            margin-bottom: 4px;
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
+        }
+
+        /* При наведении на карточку, название подсвечивается цветом */
+        .spec-card:hover .spec-name {
+            color: var(--accent-color);
         }
 
         .spec-value {
             font-weight: bold;
-            font-size: 0.95rem;
+            font-size: 1.1rem;
+            display: block;
+            transition: text-shadow 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Легкое свечение текста значения при наведении */
+        .spec-card:hover .spec-value {
+             text-shadow: 0 0 10px rgba(149, 194, 166, 0.4);
+             color: #fff;
         }
 
         footer {
             text-align: center;
-            margin-top: 60px;
+            margin-top: 80px;
+            margin-bottom: 40px;
             color: var(--text-dim);
             font-size: 0.8rem;
+            opacity: 0.7;
         }
     </style>
 </head>
@@ -109,14 +196,13 @@
 
     <div class="container">
         <header>
-            <h1>привет, это <span class="nickname">ogurecs</span></h1>
-            <p style="color: var(--text-dim);">мой рабочий и игровой уголок</p>
+            <h1><span class="nickname-gradient">ogurecs's</span> setup</h1>
         </header>
 
         <img src="1.jpg" alt="мой сетап" class="setup-image">
 
         <section>
-            <h2>пк (железо)</h2>
+            <h2>PC</h2>
             <div class="specs-grid">
                 <div class="spec-card">
                     <span class="spec-name">cpu</span>
@@ -135,16 +221,8 @@
                     <span class="spec-value">asus rog strix b650e-i</span>
                 </div>
                 <div class="spec-card">
-                    <span class="spec-name">case</span>
-                    <span class="spec-value">thermaltake the tower 100</span>
-                </div>
-                <div class="spec-card">
                     <span class="spec-name">storage</span>
                     <span class="spec-value">kingston nv3 1tb + samsung 870 1tb</span>
-                </div>
-                <div class="spec-card">
-                    <span class="spec-name">cooling</span>
-                    <span class="spec-value">arctic p14 (x2)</span>
                 </div>
                 <div class="spec-card">
                     <span class="spec-name">psu</span>
@@ -154,7 +232,7 @@
         </section>
 
         <section>
-            <h2>периферия (сетап)</h2>
+            <h2>setup</h2>
             <div class="specs-grid">
                 <div class="spec-card">
                     <span class="spec-name">monitor</span>
@@ -176,11 +254,15 @@
                     <span class="spec-name">audio</span>
                     <span class="spec-value">simgot ea500</span>
                 </div>
+                <div class="spec-card">
+                    <span class="spec-name">mousepad</span>
+                    <span class="spec-value">ordinary mousepad</span>
+                </div>
             </div>
         </section>
 
         <footer>
-            2026 / made by ogurecs
+            2026 // by ogurecs
         </footer>
     </div>
 
